@@ -18,6 +18,7 @@ const Main = () => {
       url = "https://openlibrary.org/search.json?subject=books&limit=20";
     }
     setLoading(true);
+    setNoData(false);
 
     axios
       .get(url)
@@ -25,7 +26,6 @@ const Main = () => {
         const data = response.data;
         if (data.docs && data.docs.length > 0) {
           setBooks(data.docs);
-          setNoData(false);
         } else {
           setNoData(true);
         }
@@ -70,6 +70,7 @@ const Main = () => {
       <div className="bottom">
         {books.length > 0 &&
           !noData &&
+          !loading &&
           books.map((book, index) => <Card key={index} book={book} />)}
         {loading && <p className="Loadding">Loadding!!!</p>}
         {noData && !loading && <p className="Loadding">No books found!</p>}

@@ -25,6 +25,7 @@ const Main = () => {
         const data = response.data;
         if (data.docs && data.docs.length > 0) {
           setBooks(data.docs);
+          setNoData(false);
         } else {
           setNoData(true);
         }
@@ -68,9 +69,10 @@ const Main = () => {
       <hr />
       <div className="bottom">
         {books.length > 0 &&
+          !noData &&
           books.map((book, index) => <Card key={index} book={book} />)}
         {loading && <p className="Loadding">Loadding!!!</p>}
-        {noData && <p className="Loadding">No books found!</p>}
+        {noData && !loading && <p className="Loadding">No books found!</p>}
       </div>
     </div>
   );
